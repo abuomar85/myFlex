@@ -1,4 +1,4 @@
-// importing libraries 
+// importing libraries  Use the Morgan middleware library to log all requests 
 const express = require('express');
 const app = express(),
       morgan = require('morgan');
@@ -71,7 +71,7 @@ app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
 
-// create myLogger 
+// create myLogger  
 let myLogger = (req, res, next)=> {
   console.log(req.url);
   next();
@@ -86,7 +86,7 @@ app.get('/secreturl', (req,res)=> {
 
 app.use(express.static('public'));
 
-// handel the error 
+//Create an error-handling middleware function 
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something broke'); 
