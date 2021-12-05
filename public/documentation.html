@@ -4,6 +4,9 @@
 	  <meta charset="utf-8">
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <title>movie_api Documentation</title>
+	  <style>table, th, td {
+		border:1px solid black; }
+	  </style>
 	</head>
 	
 	<body>
@@ -15,6 +18,60 @@ the movie rating
 	</p>
 	<p>Allow users to create a “To Watch” list in addition to their “Favorite Movies” list
 	</p>
+	<h2>URL endpoints </h2>
+	
+	<table>
+  <tr>
+	<th>Busness Logic</th>
+    <th>URL</th>
+	<th>HTTP Method</th>
+	<th>Request body data format </th>
+    <th>Response body data format</th>
+  </tr>
+  <tr>
+    <td>Get a list of movies</td>
+    <td>/movies</td>
+    <td>GET</td>
+	<td>None</td>
+	<td>A JSON object holding data about all the movies </td>
+  </tr>
+  <tr>
+    <td>Get data about a sinble movie by name</td>
+    <td>/movies/[Name]</td>
+    <td>GET</td>
+	<td>None</td>
+	<td>A JSON object holding data about single movie containging name , starring and dirctor  </td>
+  </tr>
+
+  <tr>
+    <td>Add a movie </td>
+    <td>/movies</td>
+    <td>POST</td>
+	<td>A JSON object holding data about the movies to add structure like <br/>
+		{
+			"name": "Red", <br/>
+			"staring": "Bruce Willis",<br/>
+			"dirctor": "Robert Schwentke"
+			}
+	</td>
+	<td>A JSON object holding data about the movie that was added including an ID <br/>
+		{"name":"Red", <br/>
+		"staring":"Bruce Willis", <br/> 
+		"dirctor":"Robert Schwentke", <br/>
+		"id":"4fc5f0f0-1041-498b-af92-2f8a0eb785b8"}
+	</td>
+  </tr>
+
+  <tr>
+    <td>Remove a movie by ID </td>
+    <td>/movies/[ID]</td>
+    <td>DELETE</td>
+	<td>None</td>
+	<td>A text message indicating weather the movie was successfully removed </td>
+  </tr>
+
+</table>
+	
 	
 
 	</body>
