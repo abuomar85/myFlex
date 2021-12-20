@@ -33,14 +33,14 @@ the movie rating
     <td>/movies</td>
     <td>GET</td>
 	<td>None</td>
-	<td>A JSON object holding data about all the movies </td>
+	<td>A JSON object holding data about all the movies and thier data such as Genre Director Actors  </td>
   </tr>
   <tr>
-    <td>Get data about a sinble movie by name</td>
-    <td>/movies/[Name]</td>
+    <td>Get data about a single movie by title</td>
+    <td>/movies/[Title]</td>
     <td>GET</td>
 	<td>None</td>
-	<td>A JSON object holding data about single movie containging name , starring and dirctor  </td>
+	<td>A JSON object holding  all data about single movie  </td>
   </tr>
 
   <tr>
@@ -49,16 +49,19 @@ the movie rating
     <td>POST</td>
 	<td>A JSON object holding data about the movies to add structure like <br/>
 		{
-			"name": "Red", <br/>
-			"staring": "Bruce Willis",<br/>
-			"dirctor": "Robert Schwentke"
+			"Title": "spiderman", <br/>
+			"Description": "superhero movie"<br/>
+			
 			}
 	</td>
 	<td>A JSON object holding data about the movie that was added including an ID <br/>
-		{"name":"Red", <br/>
-		"staring":"Bruce Willis", <br/> 
-		"dirctor":"Robert Schwentke", <br/>
-		"id":"4fc5f0f0-1041-498b-af92-2f8a0eb785b8"}
+		{
+			"Title": "spiderman",
+			"Description": "superhero movie",
+			"Actors": [],
+			"_id": "61bc538c477946dab2e3cae3",
+			"__v": 0
+		}
 	</td>
   </tr>
 
@@ -68,6 +71,107 @@ the movie rating
     <td>DELETE</td>
 	<td>None</td>
 	<td>A text message indicating weather the movie was successfully removed </td>
+  </tr>
+
+  <tr>
+    <td>Get a list of users </td>
+    <td>/users/</td>
+    <td>GET</td>
+	<td>None</td>
+	<td>A JSON object holding data about  the all users  </td>
+  </tr>
+
+  <tr>
+    <td>Get user by username </td>
+    <td>/users/username</td>
+    <td>GET</td>
+	<td>None</td>
+	<td>A JSON object holding data about  specific user  </td>
+  </tr>
+
+  <tr>
+    <td>post a new user  </td>
+    <td>/users/</td>
+    <td>POST</td>
+	<td>
+		{ "Username": "testUser", <br>
+        "Password": "testPassword", <br>
+        "Email": "testEmail", <br>
+        "Birthday": "01/01/1985 <br>
+		" }</td>
+	<td>
+		Response like this <br>
+		{
+		"Username": "testUser", <br>
+		"Password": "testPassword", <br>
+		"Email": "testEmail",<br>
+		"Birthday": "1984-12-31T23:00:00.000Z", <br>
+		"FavoriteMovies": [], <br>
+		"_id": "61bc5623477946dab2e3cae9", <br>
+		"__v": 0
+	}  </td>
+  </tr>
+
+  <tr>
+    <td>Delete a user by username</td>
+    <td>/users/[Username]</td>
+    <td>DELETE</td>
+	<td>None</td>
+	<td>A text message indicating weather the user was successfully removed </td>
+  </tr>
+
+</tr>
+
+<tr>
+  <td>Get a genre by name</td>
+  <td>/genres/[Genresname]</td>
+  <td>GET</td>
+  <td>None</td>
+  <td>A description about the genre that user search for  </td>
+</tr>
+
+<tr>
+	<td>Get a director by name</td>
+	<td>/directors/[directorname]</td>
+	<td>GET</td>
+	<td>None</td>
+	<td>information about the director that user search for like id, name and bio </td>
+  </tr>
+
+  <tr>
+	<td>Add a movie to a user's list of favorites </td>
+	<td>/users/:Username/movies/:movieId</td>
+	<td>POST</td>
+	<td>None</td>
+	<td> JSON Response like this {
+		"_id": "61bc5da6b987ec1a3a5f9f43", <br>
+		"Username": "newtest",<br>
+		"Password": "newpassword", <br>
+		"Email": "Emailtest@test.com", <br>
+		"Birthday": "1984-12-31T23:00:00.000Z", <br>
+		"FavoriteMovies": [
+			"61bc46206a04580a419b5f13"
+		], <br>
+		"__v": 0
+	} </td>
+  </tr>
+
+  <tr>
+	<td>remove a movie to a user's list of favorites </td>
+	<td>/users/:Username/movies/:movieId</td>
+	<td>DELETE</td>
+	<td>None</td>
+	<td> JSON Response like this {
+		"_id": "61bc5da6b987ec1a3a5f9f43", <br>
+		"Username": "newtest",<br>
+		"Password": "newpassword", <br>
+		"Email": "Emailtest@test.com", <br>
+		"Birthday": "1984-12-31T23:00:00.000Z", <br>
+		"FavoriteMovies": [
+			""
+		], <br>
+		"__v": 0
+	} </td>
   </tr>
 
 </table>
