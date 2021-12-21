@@ -14,6 +14,9 @@ bodyParser = require('body-parser'),
   uuid = require('uuid');
 const app = express();
       app.use(bodyParser.urlencoded({ extended: true }));
+      let auth = require('./auth')(app);
+      const passport = require('passport');
+      require('./passport'); 
       morgan = require('morgan');
       app.use(morgan('common'));
       app.use(bodyParser.json());
@@ -29,14 +32,15 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 // Get a list of all movies 
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
-  .then((movies) => {
-    res.status(201).json(movies);
-  })
-  .catch((err) => {
-    res.status(500).send('Error: ' + err); 
-  }); 
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 // Get the data about a single movie, by title 

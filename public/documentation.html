@@ -29,7 +29,7 @@ the movie rating
     <th>Response body data format</th>
   </tr>
   <tr>
-    <td>Get a list of movies</td>
+    <td>Get a list of movies for the authorized users if the user is not unauthorized the response will be unauthorized </td>
     <td>/movies</td>
     <td>GET</td>
 	<td>None</td>
@@ -110,6 +110,30 @@ the movie rating
 		"_id": "61bc5623477946dab2e3cae9", <br>
 		"__v": 0
 	}  </td>
+  </tr>
+
+  <tr>
+    <td>login for existed user </td>
+    <td>/login?Username=[username]&Password=[passowrd]/</td>
+    <td>POST</td>
+	<td>
+		{ "Username": "testUser", <br>
+        "Password": "testPassword", <br>
+     
+		 }</td>
+	<td>
+		Response like this <br>
+		{
+		"Username": "testUser", <br>
+		"Password": "testPassword", <br>
+		"Email": "testEmail",<br>
+		"Birthday": "1984-12-31T23:00:00.000Z", <br>
+		"FavoriteMovies": [], <br>
+		"_id": "61bc5623477946dab2e3cae9", <br>
+		"__v": 0},
+		"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWMwNWQwZmQwYWZhOTIwNzNjY2E4NmQiLCJVc2VybmFtZSI6ImFiZHVsbGFoNCIsIlBhc3N3b3JkIjoidGVzdHBhc3M0IiwiRW1haWwiOiJhYmR1bGxhaDRAZ21haWwuY29tIiwiRmF2b3JpdGVNb3ZpZXMiOltdLCJfX3YiOjAsImlhdCI6MTYzOTk5NjczOCwiZXhwIjoxNjQwNjAxNTM4LCJzdWIiOiJhYmR1bGxhaDQifQ.iel4m9Zi64Bv9YJQePanGYWlAaXmi8eRANK87q9lbFU"
+	}  </td>
+	
   </tr>
 
   <tr>
