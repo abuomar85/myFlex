@@ -6,9 +6,10 @@ const Movies = Models.Movie;
 const Users = Models.User; 
 const Genres = Models.Genre; 
 const Directors = Models.Director; 
-mongoose.connect('mongodb://localhost:27017/myFlexDB', 
-  {useNewUrlParser: true, useUnifiedTopology: true});
-
+// local database
+// mongoose.connect('mongodb://localhost:27017/myFlexDB', {useNewUrlParser: true, useUnifiedTopology: true});
+//online database 
+mongoose.connect( process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 const express = require('express');
 
 bodyParser = require('body-parser'),
