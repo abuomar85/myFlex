@@ -1,15 +1,13 @@
 // importing libraries  Use the Morgan middleware library to log all requests 
 const mongoose = require('mongoose'); 
 const Models = require('./models.js');
-const { check, validationResult } = require('express-validator');
 const Movies = Models.Movie;
 const Users = Models.User; 
 const Genres = Models.Genre; 
 const Directors = Models.Director; 
-// local database
-// mongoose.connect('mongodb://localhost:27017/myFlexDB', {useNewUrlParser: true, useUnifiedTopology: true});
-//online database 
-mongoose.connect( process.env.CONNECTION_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/myFlexDB', 
+  {useNewUrlParser: true, useUnifiedTopology: true});
+
 const express = require('express');
 
 bodyParser = require('body-parser'),
@@ -18,23 +16,22 @@ const app = express();
       app.use(bodyParser.urlencoded({ extended: true }));
       const cors = require('cors');
       app.use(cors());
-      // the other code if we want to allow only cretain region to be given access
       /*
-      let allowedOrigin = ['http://localhost:8080', 'http://testsite.com'];
+      only certain origins will be given access 
+      let allowedOrigins = ['http://localhost:8080', 'http://testsite.com'];
       app.use(cors({
         origin: (origin, callback) => {
-          if(!origin) return callback(null,true);
-          if(allowedOrigin.indexOf(origin) === -1) {
-            // if a sprcific origin is not found on the list allowed origin
-            let message = 'The CORS policy for this application doesnt allow access from origin ' + origin;
-            return callback(new Error(message ), false);
+          if(!origin) return callback(null, true); 
+          if(allowedOrigins.indexOf(origin)=== -1) {
+            let message = 'The CORS policy for this application doesnt allow 
+            acces from origin' + origin; 
+            return callback(new Error(message), false); 
           }
-          return callback(null, true);
+          return callback(null, true); 
         }
+      })); 
 
-      }));
-        */
-      // end of the alternative code
+       */
       let auth = require('./auth')(app);
       const passport = require('passport');
       require('./passport'); 
@@ -141,19 +138,7 @@ app.get("/directors/:Title" , (req,res) => {
 }); 
 // Create new user 
 
-app.post('/users',[
-
-  check('Username' , 'Username is required').isLength({min: 5}),
-  check('Username', 'Username containts non alphanumeric charachtes not allowed').isAlphanumeric(),
-  check('Password', 'Password is required').not().isEmpty(),
-
-], (req, res) => {
-  let errors = validationResult(req);
-if(!errors.isEmpty()) {
-  return res.status(422).json({errors: errors.array()});
-}
-  // new code for the hash password
-  let hashedPassword = Users.hashPassword(req.body.Password);
+app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -162,7 +147,7 @@ if(!errors.isEmpty()) {
         Users
           .create({
             Username: req.body.Username,
-            Password: hashedPassword,
+            Password: req.body.Password,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -301,8 +286,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something broke'); 
 })
 // listen for requests
-const port = process.env.PORT ||  8080;
-app.listen(port,'0.0.0.0', () =>{
-  console.log('Listening on Port ' + port);
+app.listen(8080, () =>{
+  console.log('Your app is listening on port 8080.');
 });
 
