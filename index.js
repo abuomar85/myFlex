@@ -50,7 +50,7 @@ app.get('/documentation', (req, res) => {
   res.sendFile('public/documentation.html', { root: __dirname });
 });
 // Get a list of all movies 
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+/* app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -60,6 +60,19 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) 
       res.status(500).send('Error: ' + error);
     });
 });
+ */
+
+app.get('/movies', function(req, res) {
+  Movies.find()
+  .then(function(movies) {
+    res.status(201).json(movies);
+  })
+  .catch(function(error) {
+    console.error(error);
+    res.status(500).send('Error : ' + error);
+  });
+});
+
 
 // Get the data about a single movie, by title 
 app.get('/Movies/:Title', (req, res) => {
